@@ -1,43 +1,24 @@
 #include "vec.h"
 
-Vec::Vec (double x_, double y_, const sf::Color& color_) {
-    x = x_;
-    y = y_;
-    color = color_;
-}
 
-sf::Vector2f Vec::GetArrow1 () {
+sf::Vector2f Vec::GetArrow1 () const {
     return sf::Vector2f (x + (-x - y) * 0.05, y + (-y + x) * 0.05);
 }
 
-sf::Vector2f Vec::GetArrow2 () {
+sf::Vector2f Vec::GetArrow2 () const {
     return sf::Vector2f (x + (-x + y) * 0.05, y + (-y - x) * 0.05);
 }
 
-
-Vec VecMul (const double c, const Vec *vec) {
-    return Vec (vec -> x * c, vec -> y * c);
+sf::Vector2f CoordSys::GetCoords (const Vec& vec) const {
+    return sf::Vector2f (originX + scaleX * vec.GetX(), originY + scaleY * vec.GetY());
 }
 
-Vec VecSum (const Vec *vec1, const Vec *vec2) {
-    return Vec (vec1 -> x + vec2 -> x, vec1 -> y + vec2 -> y);
-}
-
-
-sf::Vector2f CoordSys::GetCoords (const Vec& vec) {
-    return sf::Vector2f (originX + scaleX * vec.x, originY + scaleY * vec.y);
-}
-
-sf::Vector2f CoordSys::GetCoords (const sf::Vector2f& vec2f) {
+sf::Vector2f CoordSys::GetCoords (const sf::Vector2f& vec2f) const {
     return sf::Vector2f (originX + scaleX * vec2f.x, originY + scaleY * vec2f.y);
 }
 
-sf::Vector2f CoordSys::GetOrigin () {
-    return sf::Vector2f (originX, originY);
-}
 
-
-void VecDraw (sf::RenderWindow& window, CoordSys& coordsys, Vec& vec) {
+void VecDraw (sf::RenderWindow& window, const CoordSys& coordsys, const Vec& vec) {
 
     sf::Vector2f vec_coords = coordsys.GetCoords (vec);
     sf::Vector2f ar1_coords = coordsys.GetCoords (vec.GetArrow1());
