@@ -16,29 +16,17 @@ class Vec {
         color (color_)
         {}
 
-    double GetX () const {
-        return x;
-    }
+    double GetX () const {return x;}
 
-    double GetY () const {
-        return y;
-    }
+    double GetY () const {return y;}
 
-    sf::Color GetColor () const {
-        return color;
-    }
+    sf::Color GetColor () const {return color;}
 
-    void SetX (double x_) {
-        x = x_;
-    }
+    void SetX (double x_) {x = x_;}
 
-    void SetY (double y_) {
-        y = y_;
-    }
+    void SetY (double y_) {y = y_;}
 
-    void SetColor (const sf::Color& color_) {
-        color = color_;
-    }
+    void SetColor (const sf::Color& color_) {color = color_;}
 
     void Move (double x_, double y_) {
         x = x_;
@@ -101,16 +89,14 @@ class Vec {
         *this /= GetLen ();
     }
 
-    Vec operator! () const {
-        Vec ret = *this;
-        ret.Normalize();
-        return ret;
-    }   
+    Vec operator! () const;
+
+    void Rotate     (const double angle);
+
+    void Rotate_deg (const double deg);
 };
 
-inline Vec operator* (const double scalar, const Vec& vec) {
-    return vec * scalar;
-}
+inline Vec operator* (const double scalar, const Vec& vec);
 
 
 class CoordSys {
@@ -127,37 +113,23 @@ class CoordSys {
         scaleY (scaleY_) 
         {}
 
-    double GetOriginX () const {
-        return originX;
-    }
+    double GetOriginX () const {return originX;}
 
-    double GetOriginY () const {
-        return originY;
-    }
+    double GetOriginY () const {return originY;}
 
-    double GetScaleX () const {
-        return scaleX;
-    }
+    double GetScaleX () const {return scaleX;}
 
-    double GetScaleY () const {
-        return scaleX;
-    }
+    double GetScaleY () const {return scaleX;}
 
-    void SetOriginX (double x) {
-        originX = x;
-    }
+    void SetOriginX (double x) {originX = x;}
 
-    void SetOriginY (double y) {
-        originY = y;
-    }
+    void SetOriginY (double y) {originY = y;}
 
-    void SetScaleX (double scalex) {
-        scaleX = scalex;
-    }
+    void SetScaleX (double scalex) {scaleX = scalex;}
 
-    void SetScaleY (double scaley) {
-        scaleY = scaley;
-    }
+    void SetScaleY (double scaley) {scaleY = scaley;}
+
+    sf::Vector2f GetOrigin () const {return sf::Vector2f (originX, originY);}
 
     void MoveOrigin (double x, double y) {
         originX = x;
@@ -167,13 +139,9 @@ class CoordSys {
     sf::Vector2f GetCoords (const Vec& vec) const;
 
     sf::Vector2f GetCoords (const sf::Vector2f& vec2f) const;
-
-    sf::Vector2f GetOrigin () const {
-        return sf::Vector2f (originX, originY);
-    }
 };
 
-void VecDraw (sf::RenderWindow& window, const CoordSys& coordsys, const Vec& vec);
 
+void VecDraw (sf::RenderWindow& window, const CoordSys& coordsys, const Vec& vec);
 
 #endif
