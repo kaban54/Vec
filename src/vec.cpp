@@ -26,15 +26,13 @@ void VecDraw (sf::RenderWindow& window, const CoordSys& coordsys, const Vec& vec
 
     sf::Vertex vec_lines [] = 
     {
-        sf::Vertex (coordsys.GetOrigin (), vec.color),
-        sf::Vertex (vec_coords           , vec.color),
-        sf::Vertex (vec_coords           , vec.color),
-        sf::Vertex (ar1_coords           , vec.color),
-        sf::Vertex (vec_coords           , vec.color),
-        sf::Vertex (ar2_coords           , vec.color)
-
+        sf::Vertex (coordsys.GetOrigin (), vec.GetColor()),
+        sf::Vertex (vec_coords           , vec.GetColor()),
+        sf::Vertex (vec_coords           , vec.GetColor()),
+        sf::Vertex (ar1_coords           , vec.GetColor()),
+        sf::Vertex (vec_coords           , vec.GetColor()),
+        sf::Vertex (ar2_coords           , vec.GetColor())
     };
 
     window.draw (vec_lines, 6, sf::Lines);
 }
-

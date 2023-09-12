@@ -1,9 +1,8 @@
-#include <SFML/Graphics.hpp>
-
 #ifndef VEC_H
 #define VEC_H
 
-class CoordSys;
+#include <SFML/Graphics.hpp>
+#include <cmath>
 
 class Vec {
     double x;
@@ -50,8 +49,69 @@ class Vec {
     
     sf::Vector2f GetArrow2 () const;
 
-    friend void VecDraw (sf::RenderWindow& window, const CoordSys& coordsys, const Vec& vec);
+    Vec operator-() const {
+        return Vec (-x, -y, color);
+    }
+
+    Vec operator+ (const Vec& vec2) const {
+        return Vec (x + vec2.x, y + vec2.y);
+    }
+
+    Vec operator- (const Vec& vec2) const {
+        return Vec (x - vec2.x, y - vec2.y);
+    }
+
+    Vec operator* (const double scalar) const {
+        return Vec (x * scalar, y * scalar);
+    }
+
+    Vec operator/ (const double scalar) const {
+        return Vec (x / scalar, y / scalar);
+    }
+
+    void operator+= (const Vec& vec2) {
+        x += vec2.x;
+        y += vec2.y;
+    }
+
+    void operator-= (const Vec& vec2) {
+        x -= vec2.x;
+        y -= vec2.y;
+    }
+
+    void operator*= (const double scalar) {
+        x *= scalar;
+        y *= scalar;
+    }
+
+    void operator/= (const double scalar) {
+        x /= scalar;
+        y /= scalar;
+    }
+
+    double operator, (const Vec& vec2) const {
+        return x * vec2.x + y * vec2.y;
+    }
+
+    double GetLen () const {
+        return std::sqrt (x * x + y * y);
+    }
+
+    void Normalize () {
+        *this /= GetLen ();
+    }
+
+    Vec operator! () const {
+        Vec ret = *this;
+        ret.Normalize();
+        return ret;
+    }   
 };
+
+inline Vec operator* (const double scalar, const Vec& vec) {
+    return vec * scalar;
+}
+
 
 class CoordSys {
     double originX;
@@ -64,7 +124,7 @@ class CoordSys {
         originX (originX_),
         originY (originY_),
         scaleX (scaleX_),
-        scaleY (scaleY_)
+        scaleY (scaleY_) 
         {}
 
     double GetOriginX () const {
@@ -111,8 +171,6 @@ class CoordSys {
     sf::Vector2f GetOrigin () const {
         return sf::Vector2f (originX, originY);
     }
-
-    friend void VecDraw (sf::RenderWindow& window, const CoordSys& coordsys, const Vec& vec);
 };
 
 void VecDraw (sf::RenderWindow& window, const CoordSys& coordsys, const Vec& vec);
