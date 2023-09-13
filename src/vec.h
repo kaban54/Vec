@@ -16,6 +16,12 @@ class Vec {
         color (color_)
         {}
 
+    Vec ():
+        x (1.0),
+        y (1.0),
+        color (sf::Color::White)
+        {}
+
     double GetX () const {return x;}
 
     double GetY () const {return y;}
@@ -31,6 +37,11 @@ class Vec {
     void Move (double x_, double y_) {
         x = x_;
         y = y_;
+    }
+
+    void Move (sf::Vector2f vec2f) {
+        x = vec2f.x;
+        y = vec2f.y;
     }
 
     sf::Vector2f GetArrow1 () const;
@@ -96,7 +107,9 @@ class Vec {
     void Rotate_deg (const double deg);
 };
 
-inline Vec operator* (const double scalar, const Vec& vec);
+inline Vec operator* (const double scalar, const Vec& vec) {
+    return vec * scalar;
+}
 
 
 class CoordSys {
@@ -136,9 +149,11 @@ class CoordSys {
         originY = y;
     }
 
-    sf::Vector2f GetCoords (const Vec& vec) const;
+    sf::Vector2f GetPix (const Vec& vec) const;
 
-    sf::Vector2f GetCoords (const sf::Vector2f& vec2f) const;
+    sf::Vector2f GetPix (const sf::Vector2f& vec2f) const;
+
+    sf::Vector2f GetCoords (const double pix_x, const double pix_y);
 };
 
 
