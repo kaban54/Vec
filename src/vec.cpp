@@ -37,8 +37,16 @@ sf::Vector2f CoordSys::GetPix (const sf::Vector2f& vec2f) const {
     return sf::Vector2f (originX + scaleX * vec2f.x, originY + scaleY * vec2f.y);
 }
 
-sf::Vector2f CoordSys::GetCoords (const double pix_x, const double pix_y) {
+sf::Vector2f CoordSys::GetPix (const double x, const double y) const {
+    return sf::Vector2f (originX + scaleX * x, originY + scaleY * y);
+}
+
+sf::Vector2f CoordSys::GetCoords (const double pix_x, const double pix_y) const {
     return sf::Vector2f ((pix_x - originX) / scaleX, (pix_y - originY) / scaleY);
+}
+
+sf::Vector2f CoordSys::GetCoords (const sf::Vector2f& vec2f) const {
+    return sf::Vector2f ((vec2f.x - originX) / scaleX, (vec2f.y - originY) / scaleY);
 }
 
 void VecDraw (sf::RenderWindow& window, const CoordSys& coordsys, const Vec& vec) {

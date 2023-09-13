@@ -153,7 +153,11 @@ class CoordSys {
 
     sf::Vector2f GetPix (const sf::Vector2f& vec2f) const;
 
-    sf::Vector2f GetCoords (const double pix_x, const double pix_y);
+    sf::Vector2f GetPix (const double x, const double y) const;
+
+    sf::Vector2f GetCoords (const double pix_x, const double pix_y) const;
+
+    sf::Vector2f GetCoords (const sf::Vector2f& vec2f) const;
 };
 
 
